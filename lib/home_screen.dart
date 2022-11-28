@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -9,7 +10,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool OTurn = true; // the first player is O
-  var myStyleText = const TextStyle(color: Colors.white, fontSize: 30);
+  var myStyleText = GoogleFonts.poppins(
+      color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500);
   int OScore = 0;
   int XScore = 0;
   int filledBoxes = 0;
@@ -148,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.grey[800],
+        backgroundColor: const Color(0xFFB6E2D3),
         body: Column(
           children: [
             Expanded(
@@ -164,6 +166,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           "Player X",
                           style: myStyleText,
                         ),
+                        const SizedBox(
+                          height: 7,
+                        ),
                         Text(
                           XScore.toString(),
                           style: myStyleText,
@@ -176,6 +181,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         Text(
                           "Player O",
                           style: myStyleText,
+                        ),
+                        const SizedBox(
+                          height: 7,
                         ),
                         Text(
                           OScore.toString(),
@@ -198,13 +206,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   onTap: () => tapped(index),
                   child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.grey[700]!),
+                        border: Border.all(color: Colors.black),
                       ),
                       child: Center(
                           child: Text(
                         displayEandO[index],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 40),
+                        style: GoogleFonts.poppins(
+                            color: Colors.black, fontSize: 40),
                       ))),
                 ),
               ),
