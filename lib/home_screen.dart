@@ -11,7 +11,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool OTurn = true; // the first player is O
   var myStyleText = GoogleFonts.poppins(
-      color: Colors.black, fontSize: 30, fontWeight: FontWeight.w500);
+      color: const Color(0xFF004369),
+      fontSize: 25,
+      fontWeight: FontWeight.w500);
   int OScore = 0;
   int XScore = 0;
   int filledBoxes = 0;
@@ -100,14 +102,20 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: Text("Winner is : $winner"),
+        title: Text(
+          "Winner is : $winner",
+          style: const TextStyle(color: Color(0xFF004369)),
+        ),
         actions: [
-          TextButton(
+          ElevatedButton(
               onPressed: () {
                 clearBoard();
                 Navigator.of(context).pop();
               },
-              child: const Text("Play Again!"))
+              style: ElevatedButton.styleFrom(primary: const Color(0xFFDB1F48)),
+              child: const Text(
+                "Play Again!",
+              ))
         ],
       ),
     );
@@ -124,14 +132,20 @@ class _HomeScreenState extends State<HomeScreen> {
       context: context,
       barrierDismissible: false,
       builder: (context) => AlertDialog(
-        title: const Text("Draw"),
+        title: const Text(
+          "Draw",
+          style: TextStyle(color: Color(0xFF004369)),
+        ),
         actions: [
-          TextButton(
+          ElevatedButton(
               onPressed: () {
                 clearBoard();
                 Navigator.of(context).pop();
               },
-              child: const Text("Play Again!"))
+              style: ElevatedButton.styleFrom(primary: const Color(0xFFDB1F48)),
+              child: const Text(
+                "Play Again!",
+              ))
         ],
       ),
     );
@@ -150,7 +164,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: const Color(0xFFB6E2D3),
+        backgroundColor: const Color(0xFFE5DDC8),
         body: Column(
           children: [
             Expanded(
@@ -167,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: myStyleText,
                         ),
                         const SizedBox(
-                          height: 7,
+                          height: 5,
                         ),
                         Text(
                           XScore.toString(),
@@ -183,7 +197,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: myStyleText,
                         ),
                         const SizedBox(
-                          height: 7,
+                          height: 5,
                         ),
                         Text(
                           OScore.toString(),
@@ -204,22 +218,78 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (BuildContext context, int index) =>
                     GestureDetector(
                   onTap: () => tapped(index),
-                  child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black),
-                      ),
-                      child: Center(
-                          child: Text(
-                        displayEandO[index],
-                        style: GoogleFonts.poppins(
-                            color: Colors.black, fontSize: 40),
-                      ))),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: const Color(0xFF004369), width: 2),
+                        ),
+                        child: Center(
+                            child: Text(
+                          displayEandO[index],
+                          style: GoogleFonts.poppins(
+                              color: const Color(0xFF004369), fontSize: 40),
+                        ))),
+                  ),
                 ),
               ),
             ),
-            Expanded(child: Container()),
           ],
         ),
+        floatingActionButton: Container(
+          height: 50,
+          width: MediaQuery.of(context).size.width * 0.8,
+          child: ElevatedButton(
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text(
+                      "Do you Want to reset this game ? ",
+                      style: TextStyle(color: Color(0xFF004369)),
+                    ),
+                    actions: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            width: 100,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xFF004369)),
+                                child: const Text("No")),
+                          ),
+                          Container(
+                            width: 100,
+                            child: ElevatedButton(
+                                onPressed: () {
+                                  OScore = 0;
+                                  XScore = 0;
+                                  clearBoard();
+                                  Navigator.of(context).pop();
+                                },
+                                style: ElevatedButton.styleFrom(
+                                    primary: const Color(0xFFDB1F48)),
+                                child: const Text("Yes")),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                );
+              },
+              style: ElevatedButton.styleFrom(primary: const Color(0xFFDB1F48)),
+              child: Text(
+                "Reset",
+                style: GoogleFonts.poppins(
+                    fontSize: 25, fontWeight: FontWeight.w500),
+              )),
+        ),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
